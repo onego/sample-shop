@@ -1,0 +1,3 @@
+[submodule "onego-php-sdk"]
+	path = onego-php-sdk
+	url = https://github.com/onego/php-sdk.git
