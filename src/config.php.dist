@@ -1,0 +1,16 @@
+<?php
+
+return array(
+    'OneGo' => array(
+    
+        // Your keys from developer environment
+        'apiKey' => 'YOUR_API_KEY',
+        'apiSecret' => 'YOUR_API_SECRET',
+
+        'baseApiUrl' => 'https://api.sandbox.onego.com/pos/v1',
+        'baseOAuthUrl' => 'https://auth.sandbox.onego.com/oauth2/',
+        'baseJsSdkUrl' => '//plugins.sandbox.onego.com/webapp/v1/main.js',
+
+        'storeId' => 'testStoreId',
+    ),
+);

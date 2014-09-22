@@ -1,0 +1,104 @@
+
+#onego_slideinwidget_container {
+    z-index: 2000 !important;
+}
+
+#onego_slideinwidget_container * {
+    box-sizing: content-box;
+}
+
+.price:before {
+    content: '$';
+}
+
+.price.negative:before {
+    content: '-$';
+}
+
+.quantity:before {
+    content: '×';
+}
+
+.quantity {
+    color: grey;
+}
+
+#shelf .item {
+    width: 140px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    margin-bottom: 2em;
+    margin-right: 2em;
+    float: left;
+}
+
+#shelf .item figure {
+    margin-bottom: 0.5em;
+}
+
+#shelf .item .title {
+    display: none;
+}
+
+#cart .total {
+    border-top: 1px #ccc solid;
+    margin-top: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#cart .cashback {
+    border-top: 1px #ccc solid;
+    color: #777;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#cart .line .text {
+    display: block;
+    float: left;
+    width: 190px;
+    padding-right: 0.5em;
+}
+
+#cart.checkout .line .text {
+    width: 480px;
+}
+
+#cart .line .price {
+    display: block;
+    float: left;
+    width: 50px;
+    text-align: right;
+}
+
+#cart .line .close {
+    display: none;
+    line-height: 0.9;
+}
+
+#cart .line:hover .close {
+    display: block;
+}
+
+#cart .checkout {
+    margin-top: 0.5em;
+}
+
+#cart .order {
+    margin-top: 1em;
+}
+
+#cart .prepaid {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#confirmSpend .modal-dialog {
+    width: 485px;
+}
+
+#confirmSpend .modal-body {
+    background-color: #eaeaea;
+}
