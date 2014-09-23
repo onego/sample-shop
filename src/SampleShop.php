@@ -131,9 +131,11 @@ class SampleShop
         // This URL will receive authorization code response from OneGo.
         // Same URL will be needed to request access token. It may be generated
         // again but we will just store it in session along with request ID.
-        $backUrl = 'http://' . $_SERVER['HTTP_HOST']
-            . $this->baseUri()
-            . '?a=authResponse';
+        $proto = !empty($_SERVER['HTTP_X_FORWARDED_PROTO'])
+            ? $_SERVER['HTTP_X_FORWARDED_PROTO']
+            : (!empty($_SERVER['HTTPS']) ? 'https' : 'http');
+        $backUrl = $proto . '://' . $_SERVER['HTTP_HOST']
+            . $this->baseUri() . '?a=authResponse';
 
         // Request ID can be any random string. It will be used to check that
         // response actually originated from our request.
