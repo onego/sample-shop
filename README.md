@@ -9,6 +9,7 @@ distractions. All logic is in `/src/SampleShop.php` and is fairly commented.
 After following it you should have a pretty good understanding on how to
 integrate your e-shop with OneGo.
 
+[Live Demo!][demo]
 
 Setup
 -----
@@ -20,7 +21,7 @@ Setup
 
 Note: View code uses PHP `<?=` tags. Since PHP 5.4 they are not part of short
 tags and are always enabled. If your are using PHP version pre-5.4, you may have
-to enable [short_open_tag][1].
+to enable [short_open_tag][].
 
 
 OneGo Developer Environment
@@ -57,4 +58,5 @@ OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 --
-[1]: http://php.net/manual/en/language.basic-syntax.phptags.php "PHP Tags"
+[demo]: https://developers.onego.com/sample-shop/ "Live Demo"
+[short_open_tag]: http://php.net/manual/en/language.basic-syntax.phptags.php "PHP Tags"
