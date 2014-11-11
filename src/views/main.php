@@ -39,6 +39,14 @@
                 }
             });
 
+            OneGo.events.on('WidgetPrompt', function () {
+                // We are using side-in widget and it is not visible by default
+                // This event is fired when user follows password reset link
+                // from password reset request email so we can show widget with
+                // password reset form.
+                window.oneGoSlideInWidget.show();
+            });
+
             window.oneGoSlideInWidget = OneGo.plugins.slideInWidget.init({
                 topOffset: 35,
                 isFixed: true,
