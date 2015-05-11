@@ -24,7 +24,7 @@ class SampleShop
             $this->cfg['OneGo']['baseApiUrl']
         ));
 
-        // If we have access token and it is expired, let's try to refresh it
+        // If we have access token but it is expired, let's try to refresh it
         // using refresh token.
         if (!empty($_SESSION['OneGo']['auth'])
             && $_SESSION['OneGo']['auth']->isExpired()) {
@@ -41,12 +41,9 @@ class SampleShop
 
                 // Cancel current OneGo transaction (if any).
                 try {
-                    // Note: We are not using access token to fetch current
-                    // transaction here.
+                    // Note: We are not using access token here.
                     if ($tx = $this->getCurrentTransaction(false)) {
-                        // Note: It is OK to cancel old transaction even after
-                        // access has expired because cancel() does not use
-                        // access token.
+                        // Note: cancel() does not use access token.
                         $tx->cancel();
                     }
                 } catch (Exception $e) {
@@ -109,7 +106,7 @@ class SampleShop
      *
      * When spending is required (SCOPE_USE_BENEFITS) OneGo displays login
      * form for user to confirm with password that spending is allowed. This
-     * cannot be done in the background and used must see OneGo login form.
+     * cannot be done in the background and user must see OneGo login form.
      */
     function authRequest()
     {
@@ -160,7 +157,7 @@ class SampleShop
 
 
     /**
-     * Receives OneGo autorization code.
+     * Receives OneGo OAuth autorization code.
      */
     function authResponse()
     {
@@ -209,12 +206,12 @@ class SampleShop
 
         // Try update current OneGo transaction after authorization. If it
         // fails due to different user login on scope elevation request,
-        // recreate it for current user.
+        // recreate transaction for current user.
 
         $items = $this->getInternalCart();
 
         // Try to fetch previous transaction.
-        // Note: Using old access token.
+        // Note: Still using old access token.
         $tx = $this->getCurrentTransaction();
 
         // Using new access token from now on.
@@ -222,7 +219,7 @@ class SampleShop
 
         if ($tx) {
             try {
-                // This fetch will be with new access token.
+                // This fetch will be using new access token.
                 $this->getCurrentTransaction();
             } catch (OneGoSDK_OperationNotAllowedException $e) {
                 error_log($e);
@@ -259,7 +256,7 @@ class SampleShop
     /**
      * Cleans session data and revokes OneGo access token if any.
      *
-     * This is called JavaScript when user logout from OneGo is detected.
+     * This is called from JavaScript when user logout from OneGo is detected.
      */
     function logout()
     {
