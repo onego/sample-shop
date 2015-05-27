@@ -192,7 +192,7 @@ class SampleShop
         // We will need this to revoke current access token (if any) later.
         $oldAccessToken = @$_SESSION['OneGo']['auth'];
 
-        // Store our new access token to sessoin.
+        // Store our new access token to session.
         $_SESSION['OneGo']['auth'] = $newAccessToken;
         $_SESSION['OneGo']['user'] = array(
             'canSpend' => $newAccessToken->hasScope(
@@ -228,6 +228,7 @@ class SampleShop
                 // Note: It is OK to cancel old transaction even after access
                 // token change because cancel() does not use access token.
                 $tx->cancel();
+                $this->deleteCurrentTransaction();
                 $this->createOrUpdateCurrentTransaction($items);
             }
         } elseif ($items) {
@@ -260,6 +261,17 @@ class SampleShop
      */
     function logout()
     {
+        // If we have active transaction, cancel it.
+        try {
+            if ($tx = $this->getCurrentTransaction()) {
+                $tx->cancel();
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            // If transaction canceling failed, continue silently.
+            // There's no reason to prevent user from logging out.
+        }
+
         // If we have valid access token, revoke it.
         if (!empty($_SESSION['OneGo']['auth'])
             && !$_SESSION['OneGo']['auth']->isExpired()) {
@@ -396,7 +408,6 @@ class SampleShop
             return;
         }
 
-        $tx = $this->getCurrentTransaction();
         // If old transaction is gone, recover it, but since order
         // confirmation is serious business, do not continue without user
         // confirmation.
@@ -453,12 +464,13 @@ class SampleShop
     private function createOrUpdateCurrentTransaction($items)
     {
         $newCart = $this->buildNewCart($items);
+        $spent = @$_SESSION['OneGo']['spent'];
         if ($tx = $this->getCurrentTransaction()) {
             $tx->updateCart($newCart);
         } else {
             $tx = $this->createTransaction($newCart);
-            if ($_SESSION['OneGo']['spent'] > 0) {
-                $tx->spendPrepaid($_SESSION['OneGo']['spent']);
+            if ($spent > 0) {
+                $tx->spendPrepaid($spent);
             }
         }
         $this->saveCurrentTransaction($tx);
