@@ -249,7 +249,7 @@ class SampleShop
         }
 
         // Finally inform parent page about user login.
-        echo '<script>parent.SampleShop.login('
+        echo '<script>(parent.SampleShop ? parent : opener).SampleShop.login('
             . json_encode($_SESSION['OneGo']['user']) . ');</script>';
     }
 

@@ -83,27 +83,31 @@ SampleShop = {
 
     promptSpend: function(func) {
         var self = this;
-        var $modal = $('#confirmSpend');
-
-        $modal.find('.modal-body').empty().append(
-            $('<iframe></iframe>').attr({
-                src: '?a=authRequest&spending=1',
-                width: 450,
-                height: 400,
-                frameborder: 0
-            }));
-
-        $modal.modal().on('hidden.bs.modal', function() {
-            self.enable();
-            self.on.login = null;
-        });
-        var hideModal = function() {
-            $modal.modal('hide');
-        };
+        var w = window.outerWidth | 0;
+        var h = window.outerHeight | 0;
+        var x = (window.screenX != undefined ? window.screenX : window.screenLeft) | 0;
+        var y = (window.screenY != undefined ? window.screenY : window.screenTop) | 0;
+        var left = x + w / 2 - 250;
+        var top = y + h / 2 - 350;
+        var promptSpendWindow = window.open(
+            '?a=authRequest&spending=1',
+            'promptSpendWindow',
+            'width=500,height=500,left=' + left + ',top=' + top);
+        if (promptSpendWindow.focus) {
+            promptSpendWindow.focus();
+        }
+        var closeTimer = setInterval(function() {
+            if (promptSpendWindow.closed) {
+                clearInterval(closeTimer);
+                self.enable();
+                self.on.login = null;
+            }
+        }, 700);
         this.on.login = function() {
             func();
-            hideModal();
+            promptSpendWindow.close();
         };
+        return false;
     },
 
     login: function(user) {

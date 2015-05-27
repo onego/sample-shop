@@ -121,19 +121,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="confirmSpend" tabindex="-1" role="dialog" aria-labelledby="Confirm Spend" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Enter your password to confirm prepaid spending</h4>
-          </div>
-          <div class="modal-body">
-          </div>
-        </div>
-      </div>
-    </div>
-
     <a href="https://github.com/onego/sample-shop" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
